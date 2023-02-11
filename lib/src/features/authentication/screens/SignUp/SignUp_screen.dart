@@ -20,60 +20,65 @@ class SignUpScreen extends StatelessWidget {
               title: iSignUpTitle,
               subTitle: iSignUpSubtitle, image: ' ',
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: iFormHeight-10),
-                child: Form(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            label: Text('Full Name'),
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(
-                              Icons.person_outline_rounded,
-                              color: Color(0xFF272727),
-                            ),
-                            labelStyle: TextStyle(color: Color(0xFF272727)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(width: 2.0, color: Color(0xFF272727))
-                            ),
-                          ),
-                        ),
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            label: Text('Email'),
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(
-                              Icons.email_outlined,
-                              color: Color(0xFF272727),
-                            ),
-                            labelStyle: TextStyle(color: Color(0xFF272727)),
-                            focusedBorder: OutlineInputBorder(
+              Center(
+                child: Container(
+                  height: 700,
+                  width: 350,
+                  color: Colors.grey,
+                  padding: const EdgeInsets.symmetric(vertical: iFormHeight-10),
+                  child: Form(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              label: Text('Full Name'),
+                              border: OutlineInputBorder(),
+                              prefixIcon: Icon(
+                                Icons.person_outline_rounded,
+                                color: Color(0xFF272727),
+                              ),
+                              labelStyle: TextStyle(color: Color(0xFF272727)),
+                              focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(width: 2.0, color: Color(0xFF272727))
+                              ),
                             ),
                           ),
-                        ),
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            label: Text('Password'),
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(
-                              Icons.fingerprint,
-                              color: Color(0xFF272727),
-                            ),
-                            labelStyle: TextStyle(color: Color(0xFF272727)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(width: 2.0, color: Color(0xFF272727))
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              label: Text('Email'),
+                              border: OutlineInputBorder(),
+                              prefixIcon: Icon(
+                                Icons.email_outlined,
+                                color: Color(0xFF272727),
+                              ),
+                              labelStyle: TextStyle(color: Color(0xFF272727)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(width: 2.0, color: Color(0xFF272727))
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: iFormHeight-10,),
-                        ElevatedButton(
-                            onPressed: () {}, child: const Text("Sign Up"),
-                        )
-                      ],
-                    )
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              label: Text('Password'),
+                              border: OutlineInputBorder(),
+                              prefixIcon: Icon(
+                                Icons.fingerprint,
+                                color: Color(0xFF272727),
+                              ),
+                              labelStyle: TextStyle(color: Color(0xFF272727)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(width: 2.0, color: Color(0xFF272727))
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: iFormHeight-10,),
+                          ElevatedButton(
+                              onPressed: () {}, child: const Text("Sign Up"),
+                          )
+                        ],
+                      )
+                  ),
                 ),
               )
 

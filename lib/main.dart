@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:intelligentproject/src/features/authentication/screens/Description/UserDescription.dart';
 import 'package:intelligentproject/src/features/authentication/screens/Login/LoginScreen.dart';
 import 'package:intelligentproject/src/features/authentication/screens/SignUp/SignUp_screen.dart';
 
@@ -33,12 +34,14 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-        initialRoute: '/',
+       initialRoute: '/',
         routes: {
           '/': (context) => MyLoginPage(),
           '/second': (context) => SignUpScreen(),
-        },
-        // home: const MyLoginPage(),
+          '/third' : (context) => UserDesc(),
+
+       },
+       //  home: const UserDesc(),
         debugShowCheckedModeBanner: false,
     );
   }

@@ -292,7 +292,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
       onPressed: () {
         _formKey.currentState!.validate();
         if (signUP == true && signUp1 == true) {
-          Navigator.pushNamed(context, '/second');
+          Navigator.pushNamed(context, '/third');
           signUP = signUp1 = false;
         }
         //pachadi jaanako laagi
