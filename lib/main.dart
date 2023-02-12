@@ -2,7 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intelligentproject/src/features/authentication/screens/Description/UserDescription.dart';
 import 'package:intelligentproject/src/features/authentication/screens/Login/LoginScreen.dart';
-import 'package:intelligentproject/src/features/authentication/screens/SignUp/SignUp_screen.dart';
+import 'package:intelligentproject/src/features/authentication/screens/SignUp/SignUp%20Screen.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => MyLoginPage(),
           '/second': (context) => SignUpScreen(),
-          '/third' : (context) => UserDesc(),
+          '/third' : (context) => UserDEsc(),
 
        },
        //  home: const UserDesc(),
