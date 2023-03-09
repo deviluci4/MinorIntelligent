@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "980296288628",
+    "project_id": "khaki-2afa6",
+    "storage_bucket": "khaki-2afa6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980296288628:android:386c4ca3b10d9ca9f7c421",
+        "android_client_info": {
+          "package_name": "com.example.intelligentproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "980296288628-8na0j601smtfqfa16pqevdc857k33v4s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApqpWb5FCKCogQ-zIR2qyAJVduCNNLaa4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "980296288628-8na0j601smtfqfa16pqevdc857k33v4s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

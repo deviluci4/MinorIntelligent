@@ -1,4 +1,9 @@
+import 'dart:math';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intelligentproject/src/features/authentication/screens/Description/UserDescription.dart';
 
 class MyLoginPage extends StatefulWidget {
   const MyLoginPage({Key? key}) : super(key: key);
@@ -8,33 +13,17 @@ class MyLoginPage extends StatefulWidget {
 }
 
 class _MyLoginPageState extends State<MyLoginPage> {
-  bool? check1 = true, signUP = false, signUp1 = false;
+
   final _formKey = GlobalKey<FormState>();
-  RegExp pass_valid = RegExp(r"((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)){10,}");
-  RegExp pass_valid_email = RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController passwordController = new TextEditingController();
+  final _auth = FirebaseAuth.instance;
 
-  bool validatePassword(String pass) {
-    String _password = pass.trim();
-    if (pass_valid.hasMatch(_password)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
-  bool validateEmail(String pass) {
-    String _email = pass.trim();
-    if (pass_valid_email.hasMatch(_email)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Container(
+      body: Container(
           height: double.infinity,
           width: double.infinity,
 
@@ -48,14 +37,16 @@ class _MyLoginPageState extends State<MyLoginPage> {
             child: Container(
               height: 650,
               width: 500,
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 30),
+              margin: const EdgeInsets.only(
+                  top: 30, left: 20, right: 20, bottom: 30),
               padding: const EdgeInsets.only(top: 25, left: 30, right: 30),
               decoration: const BoxDecoration(
                   color: Colors.white
               ),
               child: GestureDetector(
-                onTap: (){
-                  FocusScope.of(context).requestFocus(new FocusNode());//on tapping anywhere outside keyboard the keybord goes away
+                onTap: () {
+                  FocusScope.of(context).requestFocus(
+                      new FocusNode()); //on tapping anywhere outside keyboard the keybord goes away
                 },
                 child: Form(
                   key: _formKey,
@@ -80,27 +71,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       _sizeBox(),
                       //size box of 20 height
 
-                      Row(
-                        children: [
-                          _checkBox(),
-                          //check box with Remember me is created
-                          Container(
-                              margin: const EdgeInsets.only(left: 10, right: 30),
-                              padding: const EdgeInsets.only(
-                                right: 25,
-                              ),
-                              child: const Text(
-                                "Remember Me",
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14),
-                              )),
-                          SizedBox(width: 80,),
-                          _textButtonForgetPassword(),
-                          // Forget me text button is created
-                        ],
-                      ),
+
                       _sizeBox(),
                       //size box of 20 height
                       _signInButton(),
@@ -124,6 +95,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
       ),
     );
   }
+
   _welcomeText() {
     return const Text("Welcome",
         style: TextStyle(
@@ -148,7 +120,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
       margin: const EdgeInsets.only(top: 30),
       child: const Text("Email",
           style: TextStyle(
-              color: Colors.black26, fontSize: 17, fontWeight: FontWeight.w500)),
+              color: Colors.black26,
+              fontSize: 17,
+              fontWeight: FontWeight.w500)),
     );
   }
 
@@ -160,18 +134,23 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
   _textFormFieldOfEmail() {
     return TextFormField(
-      validator: (value1) {
-        if (value1!.isEmpty) {
-          return "please enter email";
-        } else {
-          bool result1 = validateEmail(value1);
-          if (result1) {
-            signUp1 = true;
-          } else {
-            return "Write Email in abc@xyz.com form";
-          }
+      controller: emailController,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ("Please Enter Your Email");
         }
+        // reg expression for email validation
+        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+            .hasMatch(value)) {
+          return ("Please Enter a valid email");
+        }
+        return null;
       },
+      onSaved: (value) {
+        emailController.text = value!;
+      },
+
+
       decoration: const InputDecoration(
         hintText: "Enter Your email",
         hintStyle: TextStyle(color: Colors.grey),
@@ -197,19 +176,18 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
   _textFormFieldOfPassword() {
     return TextFormField(
+      controller: passwordController,
+
+      obscureText: true,
       validator: (value) {
+        RegExp regex = new RegExp(r'^.{6,}$');
         if (value!.isEmpty) {
-          return "plese enter a password";
-        } else {
-          bool result = validatePassword(value);
-          if (result) {
-            signUP = true;
-          } else {
-            return "Password should contain Capital, small letter & \nNumber & Special character with atleast 10";
-          }
+          return ("Password is required for login");
+        }
+        if (!regex.hasMatch(value)) {
+          return ("Enter Valid Password(Min. 6 Character)");
         }
       },
-      obscureText: true,
       decoration: const InputDecoration(
         hintStyle: TextStyle(color: Colors.grey),
         // labelText: "Password",
@@ -223,79 +201,14 @@ class _MyLoginPageState extends State<MyLoginPage> {
     );
   }
 
-  _checkBox() {
-    // return Expanded(
-    //   child: CheckboxListTile(
-    //       contentPadding: EdgeInsets.zero,
-    //
-    //     //checkbox positioned at left
-    //
-    //     value: check1,
-    //     activeColor: const Color(0XFF00C088),
-    //     checkColor: Colors.white,
-    //
-    //
-    //     controlAffinity: ListTileControlAffinity.leading,
-    //     onChanged: (bool? value) {
-    //       setState(() {
-    //         check1 = value;
-    //       });
-    //     },
-    //     title: const Text("Remember Me",
-    //
-    //         style: TextStyle(
-    //             color: Colors.grey,
-    //             fontSize: 15,
-    //             fontWeight: FontWeight.w500)),
-    //   ),
-    // );
-    return SizedBox(
-      height: 20.0,
-      width: 20.0,
-      child: Checkbox(
-        //only check box
-          value: check1,
-          activeColor: const Color(0XFF00C088), //unchecked
-          onChanged: (bool? value) {
-            //value returned when checkbox is clicked
-            setState(() {
-              check1 = value;
-            });
-          }),
-    );
-  }
-
-
-  _textButtonForgetPassword() {
-    return TextButton(
-        style: TextButton.styleFrom(
-          padding: const EdgeInsets.only(left: 20),
-          textStyle: const TextStyle(fontSize: 15),
-        ),
-        onPressed: () {
-          Navigator.pushNamed(context, '/forgotpassword');
-        },
-        child: const Text(
-          "Forgot Password",
-          style: TextStyle(
-            color: Colors.red,
-
-          ),
-        ));
-  }
 
   _signInButton() {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
           fixedSize: const Size(1000, 60),
           backgroundColor: const Color(0XFF00C088)),
-      onPressed: () {
-        _formKey.currentState!.validate();
-        if (signUP == true && signUp1 == true) {
-          Navigator.pushNamed(context, '/third');
-          signUP = signUp1 = false;
-        }
-        //pachadi jaanako laagi
+      onPressed: () { signIn(emailController.text, passwordController.text);
+        
       },
       child: const Text("Log in"),
     );
@@ -315,7 +228,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
           textStyle: const TextStyle(fontSize: 15),
         ),
         onPressed: () {
-          Navigator.pushNamed(context, '/second');
+          Navigator.pushNamed(context,'/second');
         },
         child: const Text(
           "Sign Up",
@@ -324,4 +237,23 @@ class _MyLoginPageState extends State<MyLoginPage> {
           ),
         ));
   }
+
+  void signIn(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((uid) =>
+      {
+        Fluttertoast.showToast(msg: "Login Successful"),
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => UserDEsc())),
+      }).catchError((e) {
+        Fluttertoast.showToast(msg: e!.message);
+      });
+    }
+  }
 }
+
+  
+
+
