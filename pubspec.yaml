@@ -41,6 +41,8 @@ dependencies:
   firebase_core: ^2.7.1
   fluttertoast: ^8.2.1
   firebase_core_web: ^2.2.2
+  http: ^0.13.5
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:

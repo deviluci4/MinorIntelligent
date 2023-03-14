@@ -1,9 +1,14 @@
+import 'dart:js';
+
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
+import 'package:intelligentproject/Provider.dart';
+import 'package:intelligentproject/View%20Page/View_Page.dart';
 import 'package:intelligentproject/src/features/authentication/screens/Description/UserDescription.dart';
 import 'package:intelligentproject/src/features/authentication/screens/Login/LoginScreen.dart';
 import 'package:intelligentproject/src/features/authentication/screens/SignUp/SignUp%20Screen.dart';
+import 'package:provider/provider.dart';
 
 
 Future<void> main() async{
@@ -15,7 +20,10 @@ Future<void> main() async{
         projectId: "khaki-2afa6")
   );
 
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [ChangeNotifierProvider(create: (_) => DataProvider())],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -43,6 +51,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => MyLoginPage(),
           '/second': (context) => SignUp(),
           '/third' : (context) => UserDEsc(),
+          '/fourth' : (context)=> view_Page(),
 
        },
        //  home: const UserDesc(),
